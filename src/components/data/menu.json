@@ -1,0 +1,31 @@
+{
+  "name": "menu",
+  "content": [
+    {
+      "label": "Home",
+      "url": "#"
+    },
+    {
+      "label": "About us",
+      "url": "#about-us"
+    }
+  ],
+  "class": {
+    "menu": "secondary",
+    "item": ""
+  },
+  "style": {
+    "menu": {
+      "backgroundColor": "pink"
+    },
+    "item": {
+      "margin": "40px"
+    }
+  },
+  "temp": {
+    "ui": {
+      "selected": "",
+      "hovered": false
+    }
+  }
+}
