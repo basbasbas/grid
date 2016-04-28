@@ -1,9 +1,9 @@
 <template>
 	<div class="canvas">
 		<div class="grid">
-			<div v-for="component in components" class="row"
+			<div v-for="component in components" class="row" v-bind:class="{ selected: component.temp.ui.selected }"
 				v-draggable="{index: $index, dragged: 'dragged'}"
-				v-dropzone="sort(rows, $index, $droptag, $dropdata)">
+				v-dropzone="sort(components, $index, $droptag, $dropdata)">
 
 				<div class="column"
 					  v-on:mouseover="showHovered(component)"
@@ -19,12 +19,19 @@
 
 <script>
 	import bus from 'src/events/bus.js'
+	import { sortComponent, selectComponent } from 'src/vuex/actions.js'
 
 	export default {
 
 		components: {
 		},
 
+		vuex: {
+			actions: {
+				sortComponent,
+				selectComponent
+			}
+		},
 
 		data () {
 			return {
@@ -48,7 +55,7 @@
 				this.components = components
 			},
 			options (component) {
-				bus.$emit('options', component)
+				this.selectComponent(component)
 			},
 			showHovered (component) {
 				component.temp.ui.hovered = true
@@ -56,7 +63,9 @@
 			hideHovered (component) {
 				component.temp.ui.hovered = false
 			},
-			sort(rows, index, tag, data) {
+			sort(components, index, tag, data) {
+//				this.hideHovered(components[data.index])
+				this.sortComponent(components, index, data)
 			}
 		},
 

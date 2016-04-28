@@ -24,7 +24,7 @@
 </template>
 
 <script>
-	import Styled from './app/Styled.vue'
+	import Styled from './utils/Styled.vue'
 	export default {
 		props: ['data'], components: { Styled }
 	}
@@ -33,15 +33,11 @@
 
 <style scoped>
 	/*Import by component*/
-	@import '../../semantic/dist/components/menu.min.css';
+	/*@import '../../../semantic/dist/components/menu.min.css';*/
 
-	/*todo; fix scoping*/
-	.nav {
-		position: relative;
-		z-index: -1;
+	/* Custom component styling */
+	.ui.secondary.menu {
+		margin: 0;
 	}
 
-	/*.menu {*/
-		/*text-align: center;*/
-	/*}*/
 </style>

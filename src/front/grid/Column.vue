@@ -1,12 +1,15 @@
 <template>
 	<div class="column" v-bind:class="{ selected: isColumnHovered }">
 		<!--todo; show on selected-->
-		<div class="overlay"></div>
-		<component v-for="component in components"
-					  v-bind:class="{ selected: component.temp.ui.hovered }"
-					  :is="component.name"
-					  :data="component"
-					  v-on:click="options(component)"></component>
+		<div class="column-overlay" v-bind:class="{ lowerstack: isColumnHovered }">
+
+			<div class="component-overlay" v-for="component in components" v-bind:class="{ selected: component.temp.ui.hovered }">
+				<component v-bind:class="{ lowerstack: component.temp.ui.hovered }"
+							  :is="component.name"
+							  :data="component"></component>
+			</div>
+		</div>
+
 	</div>
 </template>
 
@@ -16,7 +19,7 @@
 	//	import store from '../store'
 //	import styling from '../utilities/styling.js'
 	import bus from 'src/events/bus.js'
-	import { addComponent } from '../vuex/actions.js'
+	import { addComponent } from 'src/vuex/actions.js'
 
 //	const mockMenu = {
 //		name: 'menu',
@@ -53,6 +56,7 @@
 			column: {},
 		},
 
+		// TODO; place UI state here as object; with a watcher?
 		data () {
 			return {
 				components: []
@@ -98,8 +102,8 @@
 			options (component) {
 				bus.$emit('options', component)
 			},
-			addComponent(name) {
-				addComponent(this.components, name)
+			add(name) {
+				this.addComponent(this.components, name)
 			}
 		},
 
@@ -116,6 +120,7 @@
 		/* TODO Change */
 		/*width: 100%;*/
 		/*display: inline-block;*/
-		flex-grow: 1
+		flex-grow: 1;
+		/*z-index: 10;*/
 	}
 </style>

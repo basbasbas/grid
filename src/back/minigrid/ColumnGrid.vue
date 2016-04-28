@@ -9,7 +9,7 @@
 				  v-draggable="{index: $index, dragged: 'dragged'}"
 				  v-dropzone="sort(rows, $index, $droptag, $dropdata)">
 
-				<div v-for="column in row.columns" class="column"
+				<div v-for="column in row.columns" class="column" v-bind:class="{ selected: column.temp.ui.selected }"
 					  v-on:mouseover="showHovered(column)"
 					  v-on:mouseout="hideHovered(column)"
 					  v-on:click="options(column)">
@@ -22,7 +22,7 @@
 
 <script type="text/babel">
 	import bus from 'src/events/bus.js'
-	import { sortColumn } from 'src/vuex/actions.js'
+	import { sortColumn, selectColumn } from 'src/vuex/actions.js'
 
 	export default {
 
@@ -36,7 +36,8 @@
 
 		vuex: {
 			actions: {
-				sortColumn
+				sortColumn,
+				selectColumn
 			}
 		},
 
@@ -57,7 +58,7 @@
 
 		methods: {
 			options (col) {
-				bus.$emit('component-grid', col.components)
+				this.selectColumn(col)
 			},
 			showHovered (col) {
 				col.temp.ui.hovered = true
@@ -66,8 +67,7 @@
 				col.temp.ui.hovered = false
 			},
 			sort(rows, index, tag, data) {
-				// TODO; make action / mutation
-				sortColumn(rows, index, data)
+				this.sortColumn(rows, index, data)
 			}
 		},
 

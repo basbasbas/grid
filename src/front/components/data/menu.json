@@ -11,12 +11,12 @@
     }
   ],
   "class": {
-    "menu": "secondary",
-    "item": ""
+    "menu": ["secondary", "test"],
+    "item": ["hello"]
   },
   "style": {
     "menu": {
-      "backgroundColor": "pink"
+      "backgroundColor": ["pink", "red"]
     },
     "item": {
       "margin": "40px"

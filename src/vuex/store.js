@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import data from '../components/data/components.js'
+import data from '../front/components/data/components.js'
 
 Vue.use(Vuex)
 
@@ -20,10 +20,12 @@ const config = {
 const mockColumn = () => ({
 	styling: [],
 	components: [
+		data.menu(),
 		data.menu()
 	],
 	temp: {
 		ui: {
+			selected: false,
 			hovered: false
 		}
 	}
@@ -44,10 +46,6 @@ const state = {
 		{ columns: [
 			mockColumn(),
 		]},
-		{ columns: [
-			mockColumn(),
-			mockColumn(),
-		]},
 	]
 }
 
@@ -59,17 +57,71 @@ const mutations = {
 	ADD_ROW () {
 
 	},
-	SET_STYLE (component, property, value) {
+	ADD_COLUMN () {
 
 	},
-	SORT_LIST (list, index, data) {
-		var tmp = list[data.index];
-		list.splice(data.index, 1);
-		list.splice(index, 0, tmp);
+
+	SELECT_COLUMN (state, col) {
+		col.temp.ui.selected = true
 	},
+	SELECT_COMPONENT (state, comp) {
+		comp.temp.ui.selected = true
+	},
+	UNSELECT_COLUMNS (state) {
+		for (let row of state.rows) {
+			for (let column of row.columns) {
+				column.temp.ui.selected = false
+			}
+		}
+	},
+	UNSELECT_COMPONENTS (state) {
+		for (let row of state.rows) {
+			for (let column of row.columns) {
+				for (let component of column.components) {
+					component.temp.ui.selected = false
+				}
+			}
+		}
+	},
+	HIGHLIGHT_COMPONENT_ITEM (state, component, name) {
+		component.temp.ui.selected = name
+	},
+	UNHIGHLIGHT_COMPONENT_ITEM (state, component, name) {
+		component.temp.ui.selected = ''
+	},
+	SET_STYLE (state, rules, property, value) {
+		rules[property] = value
+	},
+	SORT_LIST (state, list, index, data) {
+		var tmp = list[data.index]
+		// Remove item
+		list.splice(data.index, 1)
+		// Place item
+		list.splice(index, 0, tmp)
+	},
+	LIST_ADD (state, list, name) {
+		list.push(name)
+	},
+	LIST_REMOVE (state, list, name) {
+		var index = list.indexOf(name);
+
+		if (index > -1) {
+			list.splice(index, 1);
+		}
+	}
+}
+
+const removeTemp = {
+	snapshot: true,
+	onMutation (mutation, nextState, prevState, store) {
+		// nextState and prevState are deep-cloned snapshots
+		// of the state before and after the mutation.
+		console.log(arguments)
+	}
 }
 
 export default new Vuex.Store({
 	state,
-	mutations
+	mutations,
+	middlewares: []
 })

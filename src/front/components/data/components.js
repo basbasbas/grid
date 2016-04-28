@@ -2,7 +2,10 @@
 // TODO Dynamic list functionality
 // TODO Place class and style WITHIN an item
 // TODO Allow multiple classes in a string
-// TODO Allow uneditable styling in component
+
+// TODO Wysiwyg text editor https://github.com/Haixing-Hu/vue-html-editor
+
+// TODO Mini grid click visual ui state
 
 import menu from './menu.json'
 

@@ -2,15 +2,24 @@ var path = require('path')
 var config = require('../config')
 var cssLoaders = require('./css-loaders')
 var projectRoot = path.resolve(__dirname, '../')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    //back: './src/back/',
+    app: './src/main.js',
+    front: './src/front/Front.vue',
+    back: './src/back/Back.vue',
+  },
+  stats: {
+    errorDetails: true
   },
   output: {
     path: config.build.assetsRoot,
     publicPath: config.build.assetsPublicPath,
-    filename: '[name].js'
+    filename: '[name].js',
   },
   resolve: {
     extensions: ['', '.js', '.vue'],
@@ -18,7 +27,7 @@ module.exports = {
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
     }
   },
   resolveLoader: {
@@ -69,8 +78,14 @@ module.exports = {
     ]
   },
   vue: {
-    loaders: cssLoaders()
+    loaders: cssLoaders({
+      extract: true
+    })
   },
+  plugins: [
+    new ExtractTextPlugin("[name].css"),
+    new CommonsChunkPlugin("commons.chunk.js")
+  ],
   eslint: {
     formatter: require('eslint-friendly-formatter')
   }
