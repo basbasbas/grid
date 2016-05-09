@@ -1,5 +1,7 @@
 <template>
+	<div class="front">
 		<grid :rows="state.rows"></grid>
+	</div>
 </template>
 
 <script>
@@ -64,10 +66,27 @@
 		padding: 0 30px;
 	}
 
-	.component {
+	/*.component {*/
 
+	/*}*/
+
+	/** {*/
+		/*z-index: 1;*/
+		/*position: relative;*/
+	/*}*/
+
+	.lowerstack {
+		position: relative;
+		z-index: -1;
 	}
-
+	
+	.column, .component, .front {
+		position: relative;
+	}
+	/*.front {*/
+		/*position: relative;*/
+		/*z-index: -1;*/
+	/*}*/
 	/*.sidebar {*/
 		/*flex-grow: 1;*/
 	/*}*/
@@ -80,9 +99,5 @@
 	/*.selected {*/
 		/*background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGDwYWBg2MIABYwwBjYBsEoMFQBRTgIFr1ydPQAAAABJRU5ErkJggg==) !important;*/
 		/*background-repeat: repeat !important;*/
-	/*}*/
-	/*.lowerstack {*/
-		/*position: relative;*/
-		/*z-index: -1;*/
 	/*}*/
 </style>

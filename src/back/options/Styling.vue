@@ -60,7 +60,6 @@ export default {
 
 	methods: {
 		type: function (val) {
-			console.log(val)
 			return types.valueToComponent(val)
 		}
 	},

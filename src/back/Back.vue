@@ -48,10 +48,22 @@
 	.selected, .highlighted {
 		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGDwYWBg2MIABYwwBjYBsEoMFQBRTgIFr1ydPQAAAABJRU5ErkJggg==) !important;
 		background-repeat: repeat !important;
+		z-index: 100;
 	}
-	.lowerstack {
-		position: relative;
-		z-index: -1;
+	.highlighted {
+		position: absolute;
+		top: 0; bottom: 0; left: 0; right: 0;
 	}
+	/*.selected *, .highlighted * {*/
+		/*position: relative;*/
+		/*z-index: 1;*/
+	/*}*/
+	/*.lowerstack {*/
+		/*position: relative;*/
+		/*z-index: -1;*/
+	/*}*/
+	/*.upperstack {*/
+		/*z-index: 100;*/
+	/*}*/
 
 </style>

@@ -1,21 +1,16 @@
 <template>
-	<div class="column" v-bind:style="styleFormatted" v-bind:class="{ lowerstack: isColumnHighlighted }">
-		<!--todo; show on selected-->
-		<!--todo; no need for class name-->
-		<!--todo; add another div for column highlighted-->
-		<div v-bind:class="{ highlighted: isColumnHighlighted }">
-			<div v-bind:class="{ lowerstack: isColumnHighlighted }">
+	<div class="column" v-bind:style="styleFormatted">
+		<div v-bind:class="{ highlighted: isColumnHighlighted }"></div>
 
-				<div class="component-overlay" v-for="component in components" v-bind:class="{ highlighted: component.temp.ui.highlighted }">
-					<component v-bind:class="{ lowerstack: component.temp.ui.highlighted }"
-								  :is="component.name"
-								  :data="component"></component>
-				</div>
-
-			</div>
+		<div class="component" v-for="component in components">
+			<div v-bind:class="{ highlighted: component.temp.ui.highlighted }"></div>
+			<component :is="component.name"
+						  :data="component"></component>
 		</div>
 
 	</div>
+
+	<!--</div>-->
 </template>
 
 <script type="text/babel">

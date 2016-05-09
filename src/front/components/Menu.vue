@@ -1,5 +1,4 @@
 <template>
-	<div class="component">
 		<div class="nav">
 			<styled item="menu" class="ui menu">
 					<styled tag="a" v-for="li in data.content" item="item" class="item" :href="li.url">
@@ -8,7 +7,6 @@
 					</styled>
 			</styled>
 		</div>
-	</div>
 </template>
 
 <script>
