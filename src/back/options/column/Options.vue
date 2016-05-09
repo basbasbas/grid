@@ -1,9 +1,7 @@
 <template>
-	<div class="options" v-if="part">
+	<div class="options">
 
-		<styling v-if="part.style" :part="part"></styling>
-		<classes v-if="part.class" :part="part"></classes>
-		<content v-if="part.content" :part="part"></content>
+		<styling :column="column"></styling>
 
 	</div>
 </template>
@@ -11,9 +9,7 @@
 <script type="text/babel">
 	//	import { setStyle } from 'src/vuex/actions'
 
-	import Styling from './Styling.vue'
-	import Classes from './Classes.vue'
-	import Content from './Content.vue'
+	import Styling from './../Styling.vue'
 
 	import bus from 'src/events/bus'
 	import compile from 'src/save/compile'
@@ -22,13 +18,11 @@
 
 		components: {
 			Styling,
-			Classes,
-			Content
 		},
 
 		data () {
 			return {
-				part: {}
+				column: {}
 			}
 		},
 
@@ -48,9 +42,13 @@
 			bus.$on('hide-options', this.unset)
 		},
 
-//		compiled () {
-////			this.savePage()
-//		},
+		compiled () {
+//			this.savePage()
+		},
+
+		destroyed () {
+		},
+
 		methods: {
 			savePage () {
 				compile.downloadPage()
@@ -66,11 +64,11 @@
 //
 //				e.target.value = ''
 //			},
-			set (part) {
-				this.part = part
+			set (column) {
+				this.column = column
 			},
 			unset () {
-				this.part = {}
+				this.column = {}
 			},
 //			showHiglighted (name) {
 //				this.highlightComponentItem(this.component, name)
@@ -79,6 +77,11 @@
 //				this.unhighlightComponentItem(this.component, name)
 //			}
 		},
+
+		filters: {
+			filter () {
+			}
+		}
 
 	}
 </script>

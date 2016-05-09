@@ -10,8 +10,8 @@
 				  v-dropzone="sort(rows, $index, $droptag, $dropdata)">
 
 				<div v-for="column in row.columns" class="column" v-bind:class="{ selected: column.temp.ui.selected }"
-					  v-on:mouseover="showHovered(column)"
-					  v-on:mouseout="hideHovered(column)"
+					  v-on:mouseover="showHighlighted(column)"
+					  v-on:mouseout="hideHighlighted(column)"
 					  v-on:click="options(column)">
 
 				</div>
@@ -22,7 +22,7 @@
 
 <script type="text/babel">
 	import bus from 'src/events/bus.js'
-	import { sortColumn, selectColumn } from 'src/vuex/actions.js'
+	import { sortList, selectColumn, highlight, unhighlight} from 'src/vuex/actions.js'
 
 	export default {
 
@@ -36,8 +36,10 @@
 
 		vuex: {
 			actions: {
-				sortColumn,
-				selectColumn
+				sortList,
+				selectColumn,
+				highlight,
+				unhighlight
 			}
 		},
 
@@ -60,14 +62,16 @@
 			options (col) {
 				this.selectColumn(col)
 			},
-			showHovered (col) {
-				col.temp.ui.hovered = true
+			showHighlighted (col) {
+//				col.temp.ui.highlighted = true
+				this.highlight(col)
 			},
-			hideHovered (col) {
-				col.temp.ui.hovered = false
+			hideHighlighted (col) {
+//				col.temp.ui.highlighted = false
+				this.unhighlight(col)
 			},
-			sort(rows, index, tag, data) {
-				this.sortColumn(rows, index, data)
+			sort(rows, index, tag, item) {
+				this.sortList(rows, index, item)
 			}
 		},
 

@@ -2,17 +2,18 @@
 	<div class="labels">
 
 		<div class="ui input">
-			<input @keyup.tab="showSelected()"
-					 @click="showSelected()"
-					 @blur="hideSelected()"
+			<input @mouseover="showHighlighted()"
+					 @mouseout="hideHighlighted()"
 					 type="text"
 					 v-on:change="add(value, $event)"
 					 placeholder="Add..">
 		</div>
 
-		<a v-for="item in value" class="ui label">
+		<a v-for="(index, item) in value" class="ui label"
+			@mouseover="showHighlighted()"
+		 	@mouseout="hideHighlighted()">
 			{{ item }}
-			<i class="delete icon" v-on:click="remove(value, item, $event)"></i>
+			<i class="delete icon" v-on:click="remove(value, index, $event)"></i>
 		</a>
 
 	</div>
@@ -26,7 +27,7 @@
 		props: {
 			name: '',
 			value: [],
-			component: {}
+			part: {}
 		},
 
 		components: {
@@ -48,20 +49,20 @@
 
 		methods: {
 			add (list, e) {
-				let name = e.target.value
+				let val = e.target.value
 
-				this.listAdd(list, name)
+				this.listAdd(list, val)
 
 				e.target.value = ''
 			},
-			remove (list, name, e) {
-				this.listRemove(list, name)
+			remove (list, index, e) {
+				this.listRemove(list, index)
 			},
-			showSelected () {
-				this.highlightComponentItem(this.component, this.name)
+			showHighlighted () {
+				if (this.name) this.highlightComponentItem(this.part, this.name)
 			},
-			hideSelected () {
-				this.unhighlightComponentItem(this.component, this.name)
+			hideHighlighted () {
+				if (this.name) this.unhighlightComponentItem(this.part, this.name)
 			}
 		},
 
@@ -73,7 +74,7 @@
 	/*@import '../../../../semantic/dist/components/icon.min.css';*/
 
 	input {
-		display: block;
+		display: block !important;
 		margin-bottom: 10px;
 	}
 	.labels {

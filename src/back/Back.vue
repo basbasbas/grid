@@ -37,7 +37,7 @@
 
 	.sidebar {
 		flex-grow: 1;
-		max-width: 400px;
+		max-width: 600px;
 	}
 
 	.grids {
@@ -45,7 +45,7 @@
 		border: 20px solid #FBFBFB;
 	}
 
-	.selected {
+	.selected, .highlighted {
 		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGDwYWBg2MIABYwwBjYBsEoMFQBRTgIFr1ydPQAAAABJRU5ErkJggg==) !important;
 		background-repeat: repeat !important;
 	}

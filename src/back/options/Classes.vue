@@ -2,10 +2,10 @@
 	<div class="classes">
 
 		<h1>class</h1>
-		<div class="item" v-for="(name, classes) in component.class">
+		<div class="item" v-for="(name, classes) in part.class">
 			<span>{{ name }}</span>
 			<br>
-			<labels :name="name" :list="classes" :component="component"></labels>
+			<labels :name="name" :value="classes" :part="part"></labels>
 			<!--<input @keyup.tab="showSelected(name)"-->
 					 <!--@click="showSelected(name)"-->
 					 <!--@blur="hideSelected(name)"-->
@@ -35,7 +35,7 @@
 	export default {
 
 		props: {
-			component: Object,
+			part: Object,
 //			classes: Object
 		},
 

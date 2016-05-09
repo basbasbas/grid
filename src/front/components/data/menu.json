@@ -3,11 +3,21 @@
   "content": [
     {
       "label": "Home",
-      "url": "#"
+      "url": "#",
+      "temp": {
+        "ui": {
+          "highlighted": false
+        }
+      }
     },
     {
       "label": "About us",
-      "url": "#about-us"
+      "url": "about-us",
+      "temp": {
+        "ui": {
+          "highlighted": false
+        }
+      }
     }
   ],
   "class": {
@@ -16,7 +26,10 @@
   },
   "style": {
     "menu": {
-      "backgroundColor": ["pink", "red"]
+      "backgroundColor": {
+        "value": "pink",
+        "options": ["pink", "red", "orange", "green"]
+      }
     },
     "item": {
       "margin": "40px"
@@ -24,8 +37,9 @@
   },
   "temp": {
     "ui": {
-      "selected": "",
-      "hovered": false
+      "selected": false,
+      "highlighted": false,
+      "highlightedItem": ""
     }
   }
 }

@@ -2,10 +2,6 @@ import Vue from 'vue'
 import App from './App'
 import DnD from 'vue-dnd'
 
-//import $ from 'jquery'
-//const jQuery = $
-//require('../semantic/dist/semantic.min.js')
-
 Vue.use(DnD)
 
 
@@ -13,6 +9,13 @@ Vue.use(DnD)
 Vue.directive('dropdown', function () {
   //console.log($(this.el))
   $(this.el).dropdown()
+})
+
+Vue.filter('highlightable', function (value, item) {
+  if (item.temp.ui.highlighted) {
+    return '<span class="highlighted">' + value + '</span>'
+  }
+  return value
 })
 
 

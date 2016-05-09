@@ -12,18 +12,19 @@
 			<!--{{ item }}-->
 			<!--<i class="delete icon" v-on:click="remove(value, item, $event)"></i>-->
 		<!--</a>-->
+		<span v-if="label">{{ label }}</span>
 
 		<div v-dropdown
 			  v-on:change="update(prop, $event)"
-			  v-on:mouseover="showHovered()"
-			  v-on:mouseout="hideHovered()"
+			  v-on:mouseover="showHighlighted()"
+			  v-on:mouseout="hideHighlighted()"
 			  class="ui selection dropdown">
 
 			<input type="hidden" name="value">
 			<i class="dropdown icon"></i>
-			<div class="default text">{{ value[0] }}</div>
+			<div class="default text">{{ value.value }}</div>
 			<div class="menu">
-				<div v-for="item in value" class="item" data-value="{{ item }}">{{ item }}</div>
+				<div v-for="option in value.options" class="item" data-value="{{ option }}">{{ option }}</div>
 			</div>
 
 		</div>
@@ -49,8 +50,10 @@
 		props: {
 			prop: '',
 			name: '',
-			value: [],
-			component: {}
+			label: '',
+			store: {},
+			value: {},
+			part: {}
 		},
 
 		components: {
@@ -71,25 +74,16 @@
 
 		methods: {
 			update (prop, e) {
-				let rules = this.component.style[this.name]
+//				let rules = this.component.style[this.name]
 				let val = e.target.value
-				let list = this.value.slice()
-				let index = list.indexOf(val)
 
-				list.splice(index, 1)
-				list.unshift(val)
-
-//				e.target.placeholder = val
-
-				this.setStyle(rules, prop, list)
-
-//				e.target.value = ''
+				this.setStyle(this.store, prop, val)
 			},
-			showHovered () {
-				this.highlightComponentItem(this.component, this.name)
+			showHighlighted () {
+				if (this.name) this.highlightComponentItem(this.part, this.name)
 			},
-			hideHovered () {
-				this.unhighlightComponentItem(this.component, this.name)
+			hideHighlighted () {
+				if (this.name) this.unhighlightComponentItem(this.part, this.name)
 			},
 		},
 

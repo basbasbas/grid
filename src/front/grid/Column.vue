@@ -1,12 +1,17 @@
 <template>
-	<div class="column" v-bind:class="{ selected: isColumnHovered }">
+	<div class="column" v-bind:style="styleFormatted" v-bind:class="{ lowerstack: isColumnHighlighted }">
 		<!--todo; show on selected-->
-		<div class="column-overlay" v-bind:class="{ lowerstack: isColumnHovered }">
+		<!--todo; no need for class name-->
+		<!--todo; add another div for column highlighted-->
+		<div v-bind:class="{ highlighted: isColumnHighlighted }">
+			<div v-bind:class="{ lowerstack: isColumnHighlighted }">
 
-			<div class="component-overlay" v-for="component in components" v-bind:class="{ selected: component.temp.ui.hovered }">
-				<component v-bind:class="{ lowerstack: component.temp.ui.hovered }"
-							  :is="component.name"
-							  :data="component"></component>
+				<div class="component-overlay" v-for="component in components" v-bind:class="{ highlighted: component.temp.ui.highlighted }">
+					<component v-bind:class="{ lowerstack: component.temp.ui.highlighted }"
+								  :is="component.name"
+								  :data="component"></component>
+				</div>
+
 			</div>
 		</div>
 
@@ -19,6 +24,8 @@
 	//	import store from '../store'
 //	import styling from '../utilities/styling.js'
 	import bus from 'src/events/bus.js'
+	import types from 'src/back/options/types/types.js'
+
 	import { addComponent } from 'src/vuex/actions.js'
 
 //	const mockMenu = {
@@ -59,7 +66,7 @@
 		// TODO; place UI state here as object; with a watcher?
 		data () {
 			return {
-				components: []
+				components: [],
 			}
 		},
 
@@ -82,6 +89,7 @@
 		created () {
 			// TODO Fetch items thru on event
 			this.components = this.column.components
+//			this.style = this.column.style.column
 //			this.update()
 		},
 
@@ -89,8 +97,19 @@
 		},
 
 		computed: {
-			isColumnHovered: function () {
-				return this.column.temp.ui.hovered
+			isColumnHighlighted: function () {
+				return this.column.temp.ui.highlighted
+			},
+			styleFormatted: function () {
+				let style = this.column.style.column
+				let formatted = {}
+
+				for (let key in style) {
+					let val = style[key]
+					// Format state to valid CSS
+					formatted[key] = types.getValue(val)
+				}
+				return formatted
 			}
 		},
 

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import data from '../front/components/data/components.js'
+import types from 'src/back/options/types/types.js'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,11 @@ const config = {
 
 
 const mockColumn = () => ({
-	styling: [],
+	style: {
+		column: {
+			backgroundColor: { value: 'pink', options: ['red', 'blue', 'pink', 'orange']}
+		}
+	},
 	components: [
 		data.menu(),
 		data.menu()
@@ -26,7 +31,7 @@ const mockColumn = () => ({
 	temp: {
 		ui: {
 			selected: false,
-			hovered: false
+			highlighted: false
 		}
 	}
 })
@@ -61,12 +66,37 @@ const mutations = {
 
 	},
 
-	SELECT_COLUMN (state, col) {
-		col.temp.ui.selected = true
+	//HIGHLIGHT_COLUMN (state, col) {
+	//	col.temp.ui.highlighted = true
+	//},
+	//UNHIGHLIGHT_COLUMN (state, col) {
+	//	col.temp.ui.highlighted = false
+	//},
+	//HIGHLIGHT_COMPONENT (state, comp) {
+	//	comp.temp.ui.highlighted = true
+	//},
+	//UNHIGHLIGHT_COMPONENT (state, comp) {
+	//	comp.temp.ui.highlighted = false
+	//},
+	HIGHLIGHT (state, part) {
+		part.temp.ui.highlighted = true
 	},
-	SELECT_COMPONENT (state, comp) {
-		comp.temp.ui.selected = true
+	UNHIGHLIGHT (state, part) {
+		part.temp.ui.highlighted = false
 	},
+	SELECT (state, part) {
+		part.temp.ui.selected = true
+	},
+	UNSELECT (state, part) {
+		part.temp.ui.selected = false
+	},
+
+	//SELECT_COLUMN (state, col) {
+	//	col.temp.ui.selected = true
+	//},
+	//SELECT_COMPONENT (state, comp) {
+	//	comp.temp.ui.selected = true
+	//},
 	UNSELECT_COLUMNS (state) {
 		for (let row of state.rows) {
 			for (let column of row.columns) {
@@ -84,13 +114,17 @@ const mutations = {
 		}
 	},
 	HIGHLIGHT_COMPONENT_ITEM (state, component, name) {
-		component.temp.ui.selected = name
+		component.temp.ui.highlightedItem = name
 	},
 	UNHIGHLIGHT_COMPONENT_ITEM (state, component, name) {
-		component.temp.ui.selected = ''
+		component.temp.ui.highlightedItem = ''
 	},
 	SET_STYLE (state, rules, property, value) {
-		rules[property] = value
+		if (types.getType(rules[property]) === 'object') {
+			rules[property].value = value
+		} else {
+			rules[property] = value
+		}
 	},
 	SORT_LIST (state, list, index, data) {
 		var tmp = list[data.index]
@@ -99,15 +133,15 @@ const mutations = {
 		// Place item
 		list.splice(index, 0, tmp)
 	},
-	LIST_ADD (state, list, name) {
-		list.push(name)
+	LIST_ADD (state, list, value) {
+		list.push(value)
 	},
-	LIST_REMOVE (state, list, name) {
-		var index = list.indexOf(name);
-
-		if (index > -1) {
-			list.splice(index, 1);
-		}
+	LIST_REMOVE (state, list, index) {
+		list.splice(index, 1);
+		//var index = list.indexOf(name);
+		//
+		//if (index > -1) {
+		//}
 	}
 }
 

@@ -6,8 +6,8 @@
 				v-dropzone="sort(components, $index, $droptag, $dropdata)">
 
 				<div class="column"
-					  v-on:mouseover="showHovered(component)"
-					  v-on:mouseout="hideHovered(component)"
+					  v-on:mouseover="showHighlighted(component)"
+					  v-on:mouseout="hideHighlighted(component)"
 					  v-on:click="options(component)">
 					{{ component.name }}
 				</div>
@@ -19,7 +19,7 @@
 
 <script>
 	import bus from 'src/events/bus.js'
-	import { sortComponent, selectComponent } from 'src/vuex/actions.js'
+	import { sortList, selectComponent, highlight, unhighlight} from 'src/vuex/actions.js'
 
 	export default {
 
@@ -28,8 +28,10 @@
 
 		vuex: {
 			actions: {
-				sortComponent,
-				selectComponent
+				sortList,
+				selectComponent,
+				highlight,
+				unhighlight
 			}
 		},
 
@@ -57,15 +59,14 @@
 			options (component) {
 				this.selectComponent(component)
 			},
-			showHovered (component) {
-				component.temp.ui.hovered = true
+			showHighlighted (component) {
+				this.highlight(component)
 			},
-			hideHovered (component) {
-				component.temp.ui.hovered = false
+			hideHighlighted (component) {
+				this.unhighlight(component)
 			},
-			sort(components, index, tag, data) {
-//				this.hideHovered(components[data.index])
-				this.sortComponent(components, index, data)
+			sort(components, index, tag, item) {
+				this.sortList(components, index, item)
 			}
 		},
 

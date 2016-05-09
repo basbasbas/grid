@@ -1,13 +1,11 @@
 <template>
 	<div class="text-input">
 
-		<span>{{ prop }}</span>
-		<br>
+		<span v-if="label">{{ label }}</span>
 
 		<div class="ui input">
-			<input @keyup.tab="showSelected()"
-					 @click="showSelected()"
-					 @blur="hideSelected()"
+			<input @mouseover="showHighlighted()"
+					 @mouseout="hideHighlighted()"
 					 type="text"
 					 v-on:change="update(prop, $event)"
 					 placeholder="{{ value }}">
@@ -17,15 +15,23 @@
 </template>
 
 <script type="text/babel">
-	import { highlightComponentItem, unhighlightComponentItem, setStyle } from 'src/vuex/actions'
+	import { highlightComponentItem, unhighlightComponentItem, highlight, unhighlight, setStyle } from 'src/vuex/actions'
 
 	export default {
 
 		props: {
 			prop: '',
+			label: '',
+			store: {},
 			value: '',
 			name: '',
-			component: {}
+			part: {}
+		},
+
+		data () {
+			return {
+
+			}
 		},
 
 		components: {
@@ -35,26 +41,39 @@
 			actions: {
 				highlightComponentItem,
 				unhighlightComponentItem,
+				highlight,
+				unhighlight,
 				setStyle
 			}
 		},
 
+		created () {
+//			console.log(this.value)
+		},
+
 		methods: {
 			update (prop, e) {
-				let rules = this.component.style[this.name]
+//				let rules = this.component.style[this.name]
 				let val = e.target.value
 
 				e.target.placeholder = val
 
-				this.setStyle(rules, prop, val)
+				this.setStyle(this.store, prop, val)
 
 				e.target.value = ''
 			},
-			showSelected () {
-				this.highlightComponentItem(this.component, this.name)
+			showHighlighted () {
+				// TODO; place code somewhere else
+				// Partial component highlight
+				if (this.name) this.highlightComponentItem(this.part, this.name)
+				// Column, component or content highlight
+				else if (this.store) this.highlight(this.store)
 			},
-			hideSelected () {
-				this.unhighlightComponentItem(this.component, this.name)
+			hideHighlighted () {
+				// Partial component highlight
+				if (this.name) this.unhighlightComponentItem(this.part, this.name)
+				// Column, component or content highlight
+				else if (this.store) this.unhighlight(this.store)
 			}
 		},
 

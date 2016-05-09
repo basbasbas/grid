@@ -9,7 +9,7 @@
 <!--</template>-->
 
 <script type="text/babel">
-	import utils from 'src/utils/utils.js'
+	import types from 'src/back/options/types/types.js'
 
 	const attrs = 'v-bind:style="styleFormatted" v-bind:class="classesAndState"'
 	const inner = '<slot></slot>'
@@ -38,8 +38,8 @@
 		},
 
 		computed: {
-			isSelected: function () {
-				return this.item == this.ui.selected
+			isHighlighted: function () {
+				return this.item == this.ui.highlightedItem
 			},
 			classesAndState: function () {
 				let obj = {}
@@ -48,7 +48,7 @@
 					obj[name] = name
 				}
 
-				if (this.isSelected) {
+				if (this.isHighlighted) {
 					obj.selected = 'selected'
 				}
 
@@ -58,16 +58,8 @@
 				let formatted = {}
 				for (let key in this.style) {
 					let val = this.style[key]
-					let type = utils.toType(val)
-
-					switch (type) {
-						case 'array':
-							formatted[key] = val[0]
-							break;
-						default:
-							formatted[key] = val
-							break;
-					}
+					// Format state to valid CSS
+					formatted[key] = types.getValue(val)
 				}
 				return formatted
 			}

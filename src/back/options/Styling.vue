@@ -1,7 +1,7 @@
 <template>
 	<div class="styles">
 
-		<div v-for="(name, rules) in component.style">
+		<div v-for="(name, rules) in part.style">
 			<h1>{{ name }}</h1>
 			<div v-for="(prop, value) in rules">
 				<!--<span>{{ prop }}</span>-->
@@ -13,7 +13,13 @@
 						 <!--v-on:change="update(component.style[name], prop, val, $event)"-->
 						 <!--placeholder="{{ val }}">-->
 			<!--</div>-->
-				<component :is="type(value)" :prop="prop" :value="value" :name="name" :component="component"></component>
+				<component :is="type(value)"
+							  :store="rules"
+							  :prop="prop"
+							  :label="prop"
+							  :value="value"
+							  :name="name"
+							  :part="part"></component>
 			</div>
 		</div>
 
@@ -26,12 +32,12 @@ import Text from './types/Text.vue'
 import Labels from './types/Labels.vue'
 import Dropdown from './types/Dropdown.vue'
 
-import utils from 'src/utils/utils.js'
+import types from 'src/back/options/types/types.js'
 
 export default {
 
 	props: {
-		component: Object,
+		part: Object,
 //			styling: Object
 	},
 
@@ -52,40 +58,11 @@ export default {
 	computed: {
 	},
 
-//		vuex: {
-//			actions: {
-//				highlightComponentItem,
-//				unhighlightComponentItem,
-//				setStyle
-//			}
-//		},
-
 	methods: {
 		type: function (val) {
-			let type = utils.toType(val)
-			switch (type) {
-				case 'string':
-					return 'text'
-				case 'array':
-					return 'dropdown'
-			}
-
-			return 'text'
+			console.log(val)
+			return types.valueToComponent(val)
 		}
-//			update (rules, prop, oldVal, e) {
-//				let newVal = e.target.value
-//				e.target.placeholder = newVal
-//
-//				this.setStyle(rules, prop, newVal)
-//
-//				e.target.value = ''
-//			},
-//			showSelected (name) {
-//				this.highlightComponentItem(this.component, name)
-//			},
-//			hideSelected (name) {
-//				this.unhighlightComponentItem(this.component, name)
-//			}
 	},
 
 }
