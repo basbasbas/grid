@@ -8,24 +8,27 @@
 					 @mouseout="hideHighlighted()"
 					 type="text"
 					 v-on:change="update(prop, $event)"
-					 placeholder="{{ value }}">
+					 placeholder="{{ formatted }}">
 		</div>
 
 	</div>
 </template>
 
 <script type="text/babel">
-	import { highlightComponentItem, unhighlightComponentItem, highlight, unhighlight, setStyle } from 'src/vuex/actions'
+	import { highlightComponentItem, unhighlightComponentItem, highlight, unhighlight, setStyle, highlightContent, unhighlightContent } from 'src/vuex/actions'
+	import types from 'src/back/options/types/types.js'
 
 	export default {
 
+		// TODO; better naming
 		props: {
 			prop: '',
 			label: '',
 			store: {},
 			value: '',
 			name: '',
-			part: {}
+			part: {},
+			content: ''
 		},
 
 		data () {
@@ -37,12 +40,20 @@
 		components: {
 		},
 
+		computed: {
+			formatted: function() {
+				return types.getValue(this.value)
+			}
+		},
+
 		vuex: {
 			actions: {
 				highlightComponentItem,
 				unhighlightComponentItem,
 				highlight,
 				unhighlight,
+				highlightContent,
+				unhighlightContent,
 				setStyle
 			}
 		},
@@ -63,15 +74,27 @@
 				e.target.value = ''
 			},
 			showHighlighted () {
+
 				// TODO; place code somewhere else
+				if(types.getType(this.value) == 'object' && this.value.hasOwnProperty('highlighted')) {
+					this.highlightContent(this.value)
+				}
+
 				// Partial component highlight
-				if (this.name) this.highlightComponentItem(this.part, this.name)
-				// Column, component or content highlight
+				else if (this.name) this.highlightComponentItem(this.part, this.name)
+//				else if (this.content) this.highlightContent(this.store, this.content)
+				// Column, component highlight
 				else if (this.store) this.highlight(this.store)
 			},
 			hideHighlighted () {
+				if(types.getType(this.value) == 'object' && this.value.hasOwnProperty('highlighted')) {
+					this.unhighlightContent(this.value)
+				}
+
 				// Partial component highlight
-				if (this.name) this.unhighlightComponentItem(this.part, this.name)
+				else if (this.name) this.unhighlightComponentItem(this.part, this.name)
+				// Content highlight
+//				else if (this.content) this.unhighlightContent(this.store, this.content)
 				// Column, component or content highlight
 				else if (this.store) this.unhighlight(this.store)
 			}

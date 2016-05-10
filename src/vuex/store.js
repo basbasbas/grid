@@ -78,11 +78,19 @@ const mutations = {
 	//UNHIGHLIGHT_COMPONENT (state, comp) {
 	//	comp.temp.ui.highlighted = false
 	//},
+	HIGHLIGHT_CONTENT (state, value) {
+		value.highlighted = true
+	},
+	UNHIGHLIGHT_CONTENT (state, value) {
+		value.highlighted = false
+	},
 	HIGHLIGHT (state, part) {
-		part.temp.ui.highlighted = true
+		if (part.hasOwnProperty('temp'))
+			part.temp.ui.highlighted = true
 	},
 	UNHIGHLIGHT (state, part) {
-		part.temp.ui.highlighted = false
+		if (part.hasOwnProperty('temp'))
+			part.temp.ui.highlighted = false
 	},
 	SELECT (state, part) {
 		part.temp.ui.selected = true

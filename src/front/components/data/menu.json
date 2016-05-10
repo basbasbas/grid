@@ -2,22 +2,12 @@
   "name": "menu",
   "content": [
     {
-      "label": "Home",
-      "url": "#",
-      "temp": {
-        "ui": {
-          "highlighted": false
-        }
-      }
+      "label": { "value": "Home", "highlighted": false },
+      "url": "#"
     },
     {
-      "label": "About us",
-      "url": "about-us",
-      "temp": {
-        "ui": {
-          "highlighted": false
-        }
-      }
+      "label": { "value": "About us", "highlighted": false },
+      "url": "about-us"
     }
   ],
   "class": {

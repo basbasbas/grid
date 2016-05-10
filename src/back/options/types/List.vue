@@ -62,6 +62,7 @@
 
 		computed: {
 			keys: function () {
+				// TODO; add validation per key
 				// Get first list object, use keys as header labels
 				if (this.value) {
 					let keys = Object.keys(this.value[0])

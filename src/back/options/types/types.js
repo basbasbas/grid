@@ -51,7 +51,6 @@ types.getValue = function(value) {
 		case 'array':
 			return value
 		default:
-			// Assume string
 			return value
 	}
 

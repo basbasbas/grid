@@ -1,0 +1,31 @@
+{
+  "name": "menu",
+  "content": {
+    "menu-list": [
+      {
+        "label": {
+          "placeholder": "Menu item",
+          "highlightable": true
+        },
+        "url": {
+          "placeholder": "#"
+        }
+      }
+    ]
+  },
+  "class": {
+    "menu": ["secondary", "test"],
+    "item": ["hello"]
+  },
+  "style": {
+    "menu": {
+      "backgroundColor": {
+        "value": "pink",
+        "options": ["pink", "red", "orange", "green"]
+      }
+    },
+    "item": {
+      "margin": "40px"
+    }
+  }
+}

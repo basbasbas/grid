@@ -35,9 +35,19 @@ export const selectColumn = function ({ dispatch, state }, column) {
 	dispatch('UNSELECT_COLUMNS')
 	dispatch('SELECT', column)
 
-	bus.$emit('hide-options')
+	//bus.$emit('hide-options')
 	bus.$emit('show-options', column)
 	bus.$emit('component-grid', column.components)
+}
+
+export const selectGeneral = function ({ dispatch, state }) {
+	dispatch('UNSELECT_COMPONENTS')
+	dispatch('UNSELECT_COLUMNS')
+	dispatch('SELECT_GENERAL')
+
+	//bus.$emit('hide-options')
+	bus.$emit('show-options')
+	//bus.$emit('component-grid', column.components)
 }
 
 export const selectComponent = function ({ dispatch, state }, component) {
@@ -52,6 +62,12 @@ export const highlight = function ({ dispatch, state }, part) {
 }
 export const unhighlight = function ({ dispatch, state }, part) {
 	dispatch('UNHIGHLIGHT', part)
+}
+export const highlightContent = function ({ dispatch, state }, value) {
+	dispatch('HIGHLIGHT_CONTENT', value)
+}
+export const unhighlightContent = function ({ dispatch, state }, value) {
+	dispatch('UNHIGHLIGHT_CONTENT', value)
 }
 //export const highlightColumn = function ({ dispatch, state }, column) {
 //	dispatch('HIGHLIGHT', column)

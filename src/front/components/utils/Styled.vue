@@ -49,6 +49,7 @@
 				}
 
 				if (this.isHighlighted) {
+					//  TODO; fix to highlighted
 					obj.selected = 'selected'
 				}
 
