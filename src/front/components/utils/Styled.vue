@@ -30,6 +30,7 @@
 
 		data () {
 			return {
+				// TODO; should use data instead of prop?
 				data: {},
 				style: {},
 				classes: {},
@@ -71,7 +72,7 @@
 			this.style = this.data.style[this.item]
 			this.classes = this.data.class[this.item]
 
-			this.ui = this.data.temp.ui
+			this.ui = this.data.temp
 			this.tag = this.tag || 'div'
 
 			this.$options.template = template(this.tag)

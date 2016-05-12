@@ -1,7 +1,11 @@
 <template>
 	<div class="content">
 
-		<list :part="part" :value="part.content"></list>
+		<div v-for="(name, prop) in part.content">
+			<h1>{{ name }}</h1>
+			<!--<list :part="part" :value="part" :blueprint="blueprint"></list>-->
+			<component :is="type(name)" :part="prop" :value="prop" :blueprint="sub(name)"></component>
+		</div>
 		<!--<div v-for="(index, rules) in component.content">-->
 			<!--<h1>{{ index }}</h1>-->
 			<!--<div v-for="(prop, val) in rules">-->
@@ -19,11 +23,14 @@
 <script type="text/babel">
 //	import { highlightComponentItem, unhighlightComponentItem } from 'src/vuex/actions'
 	import List from './types/List.vue'
+	import Text from './types/Text.vue'
+	import types from 'src/back/options/types/types.js'
 
 	export default {
 
 		props: {
-			part: Object,
+			part: {},
+			blueprint: {}
 		},
 
 		components: {
@@ -47,6 +54,19 @@
 		},
 
 		methods: {
+			type: function(name) {
+				return types.valueToComponent(this.blueprint[name])
+			},
+			sub: function(name) {
+				let formatted = this.blueprint[name]
+				let type = types.getType(formatted)
+
+				if (type == 'array') {
+					return formatted[0]
+				}
+
+				return formatted
+			},
 //			update (rules, prop, oldVal, e) {
 //				let newVal = e.target.value
 //				e.target.placeholder = newVal

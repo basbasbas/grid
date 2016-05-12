@@ -1,0 +1,33 @@
+{
+  "name": "menu",
+  "content": [
+    {
+      "label": { "value": "Home", "temp": { "highlighted": false }},
+      "url": "#"
+    },
+    {
+      "label": { "value": "About us", "temp": { "highlighted": false }},
+      "url": "about-us"
+    }
+  ],
+  "class": {
+    "menu": ["secondary", "test"],
+    "item": ["hello"]
+  },
+  "style": {
+    "menu": {
+      "backgroundColor": {
+        "value": "pink",
+        "options": ["pink", "red", "orange", "green"]
+      }
+    },
+    "item": {
+      "margin": "40px"
+    }
+  },
+  "temp": {
+      "selected": false,
+      "highlighted": false,
+      "highlightedItem": ""
+    }
+}

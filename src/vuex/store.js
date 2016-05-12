@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import data from '../front/components/data/components.js'
+import blueprints from '../front/components/data/components.js'
 import types from 'src/back/options/types/types.js'
 
 Vue.use(Vuex)
@@ -17,22 +17,59 @@ const config = {
 	}
 }
 
+const testMenu = () => ({
+	"name": "menu",
+	"content": {
+		"items": [
+			{
+				"label": { "value": "Home", "temp": { "highlighted": false } },
+				"url": "#"
+			},
+			{
+				"label": { "value": "About us", "temp": { "highlighted": false } },
+				"url": "about-us"
+			}
+		]
+	},
+	"class": {
+		"menu": ["secondary", "test"],
+		"item": ["hello"]
+	},
+	"style": {
+		"menu": {
+			"backgroundColor": "orange"
+		},
+		"item": {
+			"margin": "40px"
+		}
+	},
+	"temp": {
+		"selected": false,
+		"highlighted": false,
+		"highlightedItem": ""
+	}
+
+})
+
+//console.log(blueprints.getFormatted('menu2'))
+
 
 const mockColumn = () => ({
+	name: 'column',
 	style: {
 		column: {
-			backgroundColor: { value: 'pink', options: ['red', 'blue', 'pink', 'orange']}
+			backgroundColor: 'pink'
 		}
 	},
 	components: [
-		data.menu(),
-		data.menu()
+		//blueprints.get('menu'),
+		//blueprints.get('menu')
+		testMenu(),
+		testMenu()
 	],
 	temp: {
-		ui: {
 			selected: false,
 			highlighted: false
-		}
 	}
 })
 
@@ -61,6 +98,7 @@ const mutations = {
 	},
 	ADD_ROW () {
 
+
 	},
 	ADD_COLUMN () {
 
@@ -78,25 +116,25 @@ const mutations = {
 	//UNHIGHLIGHT_COMPONENT (state, comp) {
 	//	comp.temp.ui.highlighted = false
 	//},
-	HIGHLIGHT_CONTENT (state, value) {
-		value.highlighted = true
-	},
-	UNHIGHLIGHT_CONTENT (state, value) {
-		value.highlighted = false
-	},
+	//HIGHLIGHT_CONTENT (state, value) {
+	//	value.temp.highlighted = true
+	//},
+	//UNHIGHLIGHT_CONTENT (state, value) {
+	//	value.highlighted = false
+	//},
 	HIGHLIGHT (state, part) {
 		if (part.hasOwnProperty('temp'))
-			part.temp.ui.highlighted = true
+			part.temp.highlighted = true
 	},
 	UNHIGHLIGHT (state, part) {
 		if (part.hasOwnProperty('temp'))
-			part.temp.ui.highlighted = false
+			part.temp.highlighted = false
 	},
 	SELECT (state, part) {
-		part.temp.ui.selected = true
+		part.temp.selected = true
 	},
 	UNSELECT (state, part) {
-		part.temp.ui.selected = false
+		part.temp.selected = false
 	},
 
 	//SELECT_COLUMN (state, col) {
@@ -108,7 +146,7 @@ const mutations = {
 	UNSELECT_COLUMNS (state) {
 		for (let row of state.rows) {
 			for (let column of row.columns) {
-				column.temp.ui.selected = false
+				column.temp.selected = false
 			}
 		}
 	},
@@ -116,16 +154,16 @@ const mutations = {
 		for (let row of state.rows) {
 			for (let column of row.columns) {
 				for (let component of column.components) {
-					component.temp.ui.selected = false
+					component.temp.selected = false
 				}
 			}
 		}
 	},
 	HIGHLIGHT_COMPONENT_ITEM (state, component, name) {
-		component.temp.ui.highlightedItem = name
+		component.temp.highlightedItem = name
 	},
 	UNHIGHLIGHT_COMPONENT_ITEM (state, component, name) {
-		component.temp.ui.highlightedItem = ''
+		component.temp.highlightedItem = ''
 	},
 	SET_STYLE (state, rules, property, value) {
 		if (types.getType(rules[property]) === 'object') {

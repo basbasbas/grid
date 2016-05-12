@@ -11,10 +11,11 @@ function format(value) {
 	_.forEach(value, function(val, key) {
 		let type = types.getType(val)
 		// Is object, has property value, has property highlighted
-		if(type == 'object' && val.hasOwnProperty('value') && val.hasOwnProperty('highlighted')) {
+		// TODO; no need for hasownproperty
+		if(type == 'object' && val.hasOwnProperty('value') && val.hasOwnProperty('temp')) {
 			// Set object to value
 			let highlightHTML = '<span class="highlighted"></span>'
-			if (val.highlighted) {
+			if (val.temp.highlighted) {
 				value[key] = highlightHTML + val.value
 			} else {
 				value[key] = val.value

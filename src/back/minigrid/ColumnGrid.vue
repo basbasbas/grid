@@ -9,7 +9,7 @@
 				  v-draggable="{index: $index, dragged: 'dragged'}"
 				  v-dropzone="sort(rows, $index, $droptag, $dropdata)">
 
-				<div v-for="column in row.columns" class="column" v-bind:class="{ selected: column.temp.ui.selected }"
+				<div v-for="column in row.columns" class="column" v-bind:class="{ selected: column.temp.selected }"
 					  v-on:mouseover="showHighlighted(column)"
 					  v-on:mouseout="hideHighlighted(column)"
 					  v-on:click="options(column)">

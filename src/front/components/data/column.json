@@ -1,0 +1,11 @@
+{
+  "name": "column",
+  "style": {
+    "column": {
+      "backgroundColor": {
+        "value": "pink",
+        "options": ["pink", "red", "orange", "green"]
+      }
+    }
+  }
+}

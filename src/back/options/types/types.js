@@ -32,7 +32,7 @@ function objectToComponent (obj) {
 
 function arrayToComponent (array) {
 	if (utils.toType(array[0]) === 'object') {
-		return 'table'
+		return 'list'
 	} else {
 		return 'labels'
 	}

@@ -1,9 +1,10 @@
 <template>
 	<div class="options" v-if="part">
 
-		<styling v-if="part.style" :part="part"></styling>
+		<!--Blueprint does not need to be reactive-->
+		<styling v-if="part.style" :blueprint="blueprint.style" :part="part"></styling>
 		<classes v-if="part.class" :part="part"></classes>
-		<content v-if="part.content" :part="part"></content>
+		<content v-if="part.content" :blueprint="blueprint.content" :part="part"></content>
 
 	</div>
 </template>
@@ -17,6 +18,7 @@
 
 	import bus from 'src/events/bus'
 	import compile from 'src/save/compile'
+	import blueprints from 'src/front/components/data/components.js'
 
 	export default {
 
@@ -28,15 +30,13 @@
 
 		data () {
 			return {
-				part: {}
+				part: {},
+				blueprint: {}
 			}
 		},
 
 		vuex: {
 			actions: {
-//				highlightComponentItem,
-//				unhighlightComponentItem,
-//				setStyle
 			}
 		},
 
@@ -48,9 +48,6 @@
 			bus.$on('hide-options', this.unset)
 		},
 
-//		compiled () {
-////			this.savePage()
-//		},
 		methods: {
 			savePage () {
 				compile.downloadPage()
@@ -58,26 +55,14 @@
 			openInTab () {
 				compile.openInTab()
 			},
-//			update (rules, prop, oldVal, e) {
-//				let newVal = e.target.value
-//				e.target.placeholder = newVal
-//
-//				this.setStyle(rules, prop, newVal)
-//
-//				e.target.value = ''
-//			},
 			set (part) {
 				this.part = part
+				this.blueprint = blueprints.get(part.name)
 			},
 			unset () {
 				this.part = {}
+				this.blueprint = {}
 			},
-//			showHiglighted (name) {
-//				this.highlightComponentItem(this.component, name)
-//			},
-//			hideHighlighted (name) {
-//				this.unhighlightComponentItem(this.component, name)
-//			}
 		},
 
 	}

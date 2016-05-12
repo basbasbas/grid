@@ -1,7 +1,7 @@
 <template>
 		<div class="nav">
 			<styled item="menu" class="ui menu">
-					<styled tag="a" v-for="li in content" item="item" class="item" :href="li.url">
+					<styled tag="a" v-for="li in content.items" item="item" class="item" :href="li.url">
 						<!--TODO; easier to understand syntax?-->
 						{{{ li.label }}}
 					</styled>

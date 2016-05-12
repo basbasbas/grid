@@ -16,7 +16,7 @@ Vue.directive('dropdown', function () {
 })
 
 Vue.filter('highlightable', function (value, item) {
-  if (item.temp.ui.highlighted) {
+  if (item.temp.highlighted) {
     return '<span class="highlighted"></span>' + value
   }
   return value

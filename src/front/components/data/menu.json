@@ -1,15 +1,18 @@
 {
   "name": "menu",
-  "content": [
-    {
-      "label": { "value": "Home", "highlighted": false },
-      "url": "#"
-    },
-    {
-      "label": { "value": "About us", "highlighted": false },
-      "url": "about-us"
-    }
-  ],
+  "content": {
+    "items": [
+      {
+        "label": {
+          "default": "Menu item",
+          "highlightable": true
+        },
+        "url": {
+          "default": "#"
+        }
+      }
+    ]
+  },
   "class": {
     "menu": ["secondary", "test"],
     "item": ["hello"]
@@ -23,13 +26,6 @@
     },
     "item": {
       "margin": "40px"
-    }
-  },
-  "temp": {
-    "ui": {
-      "selected": false,
-      "highlighted": false,
-      "highlightedItem": ""
     }
   }
 }

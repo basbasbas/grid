@@ -15,13 +15,14 @@
 </template>
 
 <script type="text/babel">
-	import { highlightComponentItem, unhighlightComponentItem, highlight, unhighlight, setStyle, highlightContent, unhighlightContent } from 'src/vuex/actions'
+	import { highlightComponentItem, unhighlightComponentItem, highlight, unhighlight, setStyle } from 'src/vuex/actions'
 	import types from 'src/back/options/types/types.js'
 
 	export default {
 
 		// TODO; better naming
 		props: {
+//			blueprint: {},
 			prop: '',
 			label: '',
 			store: {},
@@ -52,8 +53,6 @@
 				unhighlightComponentItem,
 				highlight,
 				unhighlight,
-				highlightContent,
-				unhighlightContent,
 				setStyle
 			}
 		},
@@ -76,8 +75,8 @@
 			showHighlighted () {
 
 				// TODO; place code somewhere else
-				if(types.getType(this.value) == 'object' && this.value.hasOwnProperty('highlighted')) {
-					this.highlightContent(this.value)
+				if(types.getType(this.value) == 'object' && this.value.hasOwnProperty('temp')) {
+					this.highlight(this.value)
 				}
 
 				// Partial component highlight
@@ -87,8 +86,8 @@
 				else if (this.store) this.highlight(this.store)
 			},
 			hideHighlighted () {
-				if(types.getType(this.value) == 'object' && this.value.hasOwnProperty('highlighted')) {
-					this.unhighlightContent(this.value)
+				if(types.getType(this.value) == 'object' && this.value.hasOwnProperty('temp')) {
+					this.unhighlight(this.value)
 				}
 
 				// Partial component highlight

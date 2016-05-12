@@ -63,12 +63,12 @@ export const highlight = function ({ dispatch, state }, part) {
 export const unhighlight = function ({ dispatch, state }, part) {
 	dispatch('UNHIGHLIGHT', part)
 }
-export const highlightContent = function ({ dispatch, state }, value) {
-	dispatch('HIGHLIGHT_CONTENT', value)
-}
-export const unhighlightContent = function ({ dispatch, state }, value) {
-	dispatch('UNHIGHLIGHT_CONTENT', value)
-}
+//export const highlightContent = function ({ dispatch, state }, value) {
+//	dispatch('HIGHLIGHT_CONTENT', value)
+//}
+//export const unhighlightContent = function ({ dispatch, state }, value) {
+//	dispatch('UNHIGHLIGHT_CONTENT', value)
+//}
 //export const highlightColumn = function ({ dispatch, state }, column) {
 //	dispatch('HIGHLIGHT', column)
 //}

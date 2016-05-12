@@ -1,7 +1,7 @@
 <template>
 	<div class="canvas">
 		<div class="grid">
-			<div v-for="component in components" class="row" v-bind:class="{ selected: component.temp.ui.selected }"
+			<div v-for="component in components" class="row" v-bind:class="{ selected: component.temp.selected }"
 				v-draggable="{index: $index, dragged: 'dragged'}"
 				v-dropzone="sort(components, $index, $droptag, $dropdata)">
 

@@ -25,12 +25,12 @@ var vm = new Vue({
 
 			for (let column of row.columns) {
 				this.columns.push(column)
-				this.columnsTemp.push(column.temp.ui)
-				this.columnsTempSelected.push(column.temp.ui.selected)
+				this.columnsTemp.push(column.temp)
+				this.columnsTempSelected.push(column.temp.selected)
 
 				for (let component of column.components) {
 					this.components.push(component)
-					this.componentsTemp.push(component.temp.ui)
+					this.componentsTemp.push(component.temp)
 
 				}
 

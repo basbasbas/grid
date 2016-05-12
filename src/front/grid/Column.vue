@@ -3,7 +3,7 @@
 		<div v-bind:class="{ highlighted: isColumnHighlighted }"></div>
 
 		<div class="component" v-for="component in components">
-			<div v-bind:class="{ highlighted: component.temp.ui.highlighted }"></div>
+			<div v-bind:class="{ highlighted: component.temp.highlighted }"></div>
 			<component :is="component.name"
 						  :data="component"></component>
 		</div>
@@ -93,7 +93,7 @@
 
 		computed: {
 			isColumnHighlighted: function () {
-				return this.column.temp.ui.highlighted
+				return this.column.temp.highlighted
 			},
 			styleFormatted: function () {
 				let style = this.column.style.column

@@ -1,3 +1,12 @@
+<!--
+##########
+Renders a dynamic list
+
+Props
+	Data:			A list of objects and nested lists representing current list data
+	Blueprint: 	Rules concerning data properties
+##########
+-->
 <template>
 	<div class="list">
 
@@ -17,15 +26,6 @@
 						remove
 					</div>
 				</td>
-				<!--<td>-->
-					<!--<h4 class="ui image header">-->
-					<!--<img src="/images/avatar2/small/lena.png" class="ui mini rounded image">-->
-					<!--<div class="content">-->
-					<!--<div class="sub header">Human Resources-->
-					<!--</div>-->
-					<!--</div>-->
-					<!--</h4>-->
-				<!--</td>-->
 			</tr>
 			</tbody>
 		</table>
@@ -53,30 +53,18 @@
 
 		props: {
 			value: [],
-			part: {}
-		},
-
-		components: {
-			Text
-		},
-
-		computed: {
-			keys: function () {
-				// TODO; add validation per key
-				// Get first list object, use keys as header labels
-				if (this.value) {
-					let keys = Object.keys(this.value[0])
-
-					return keys.filter(key => !defaults.includes(key));
-				}
-
-			}
+			part: {},
+			blueprint: {}
 		},
 
 		data () {
 			return {
 				formInput: {}
 			}
+		},
+
+		components: {
+			Text
 		},
 
 		vuex: {
@@ -88,12 +76,30 @@
 			}
 		},
 
-		methods: {
-			add (list, input) {
-				// TODO; put somewhere else
-				input = Object.assign({}, input, { temp: { ui: { highlighted: false } } })
+		computed: {
+			keys: function () {
+				// TODO; add validation per key
+				// Get first list object, use keys as header labels
+				if (this.value) {
+					let keys = Object.keys(this.blueprint)
 
-				this.listAdd(list, input)
+					return keys.filter(key => !defaults.includes(key));
+				}
+
+			}
+		},
+
+		methods: {
+			add (list, inputs) {
+				// TODO; put somewhere else
+				_.forEach(inputs, (input, key) => {
+					// Add hightighted state to value if blueprint specifies
+					if (this.blueprint[key].highlightable) {
+						inputs[key] = { value: input, temp: { highlighted: false } }
+					}
+				})
+
+				this.listAdd(list, inputs)
 
 				this.formInput = {}
 			},
@@ -108,26 +114,10 @@
 			unhoverRow (e) {
 			}
 
-//			showHighlighted () {
-//				if (this.name) this.highlightComponentItem(this.component, this.name)
-//			},
-//			hideHighlighted () {
-//				if (this.name) this.unhighlightComponentItem(this.component, this.name)
-//			}
 		},
 
 	}
 </script>
 
 <style scoped>
-	/*@import '../../../../semantic/dist/components/label.min.css';*/
-	/*@import '../../../../semantic/dist/components/icon.min.css';*/
-
-	/*input {*/
-		/*display: block !important;*/
-		/*margin-bottom: 10px;*/
-	/*}*/
-	/*.labels {*/
-		/*margin-bottom: 30px;*/
-	/*}*/
 </style>

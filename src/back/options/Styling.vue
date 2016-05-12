@@ -13,11 +13,11 @@
 						 <!--v-on:change="update(component.style[name], prop, val, $event)"-->
 						 <!--placeholder="{{ val }}">-->
 			<!--</div>-->
-				<component :is="type(value)"
+				<component :is="type(full(name, prop, value))"
+							  :value="full(name, prop, value)"
 							  :store="rules"
 							  :prop="prop"
 							  :label="prop"
-							  :value="value"
 							  :name="name"
 							  :part="part"></component>
 			</div>
@@ -37,7 +37,8 @@ import types from 'src/back/options/types/types.js'
 export default {
 
 	props: {
-		part: Object,
+		part: {},
+		blueprint: {}
 //			styling: Object
 	},
 
@@ -61,6 +62,16 @@ export default {
 	methods: {
 		type: function (val) {
 			return types.valueToComponent(val)
+		},
+		full: function (name, prop, value) {
+			let formatted = _.cloneDeep(this.blueprint[name][prop])
+
+			if (types.getType(formatted) == 'object' && formatted.hasOwnProperty('value')) {
+				formatted.value = value
+				return formatted
+			}
+
+			return value
 		}
 	},
 
