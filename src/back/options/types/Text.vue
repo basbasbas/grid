@@ -1,3 +1,12 @@
+<!--
+##################################################
+Renders a text input which is bound to state data. Mouse-over highlights said state data anywhere on the website
+
+Props
+	Data:			A list of objects and nested lists representing current list data
+	Blueprint: 	Rules concerning data properties
+##################################################
+-->
 <template>
 	<div class="text-input">
 
@@ -73,6 +82,7 @@
 				e.target.value = ''
 			},
 			showHighlighted () {
+				// State data to highlights depends on context of input
 
 				// TODO; place code somewhere else
 				if(types.getType(this.value) == 'object' && this.value.hasOwnProperty('temp')) {

@@ -17,6 +17,7 @@ const config = {
 	}
 }
 
+
 const testMenu = () => ({
 	"name": "menu",
 	"content": {
@@ -62,10 +63,10 @@ const mockColumn = () => ({
 		}
 	},
 	components: [
-		//blueprints.get('menu'),
-		//blueprints.get('menu')
-		testMenu(),
-		testMenu()
+		blueprints.getFormatted('menu'),
+		blueprints.getFormatted('menu')
+		//testMenu(),
+		//testMenu()
 	],
 	temp: {
 			selected: false,

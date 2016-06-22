@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import DnD from 'vue-dnd'
 
-import _ from 'lodash'
+//import _ from 'lodash'
 
 Vue.use(DnD)
 

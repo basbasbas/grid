@@ -5,6 +5,7 @@ import menu from './menu.json'
 //import menu2 from './menu2.json'
 
 import types from 'src/back/options/types/types.js'
+import { templates } from 'src/templates/ui.js'
 
 const components = { menu, column }
 
@@ -27,18 +28,20 @@ blueprints.getFormatted = (name) => {
 }
 
 function format(component) {
-	if (component.hasOwnProperty('content'))
-		component.content = formatContent(component.content)
-	if (component.hasOwnProperty('style'))
-		component.style = formatStyle(component.style)
+	if (component.content) component.content = formatContent(component.content)
+	if (component.style) component.style = formatStyle(component.style)
+
+	component.temp = templates.temp()
 
 	return component
 }
 
 function formatStyle(style) {
-	_.forEach(style, (props, name) => {
+	// Iterate style segments
+	_.forEach(style, (props, segment) => {
+		// Iterate segment properties
 		_.forEach(props, (value, prop) => {
-			if (types.getType(value) == 'object' && value.hasOwnProperty('value')) {
+			if (types.getType(value) == 'object' && value.value) {
 				props[prop] = value.value
 			}
 
@@ -49,6 +52,42 @@ function formatStyle(style) {
 }
 
 function formatContent(content) {
+	// Iterate content properties
+	_.forEach(content, (value, prop) => {
+		// Check value type
+		let isEmpty = true
+		let isList = false
+
+		if (types.getType(value) == 'array') {
+			// Default array to first value
+			value = value[0]
+			isList = true
+		}
+		_.forEach(value, (val, prop) => {
+			// Todo; allow nested lists recursively
+			if (types.getType(val) == 'object') {
+				let newVal = {}
+				if (val.highlightable && val.default) {
+					newVal = templates.highlightable(val.default)
+					isEmpty = false
+				}
+				else if (val.default) {
+					newVal = val.default
+					isEmpty = false
+				}
+				else {
+					newVal = ''
+				}
+
+				 value[prop] = newVal
+			}
+		})
+
+		if (isList && isEmpty) {
+			content[prop] = []
+		}
+
+	})
 
 
 	return content

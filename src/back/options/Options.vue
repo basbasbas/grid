@@ -58,6 +58,8 @@
 			set (part) {
 				this.part = part
 				this.blueprint = blueprints.get(part.name)
+
+				console.log(blueprints.getFormatted('menu'))
 			},
 			unset () {
 				this.part = {}
